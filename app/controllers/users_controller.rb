@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :admin_user,     only: :destroy
   def new
-    @users = User.paginate(page: params[:page])
+    @user = User.new
   end
 
   def destroy
@@ -14,10 +14,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
+
   end
 
   def create
