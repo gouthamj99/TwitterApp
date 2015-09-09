@@ -34,3 +34,10 @@ count=0
   users.each { |user| user.microposts.create!(content: content) }
   count +=1
 end
+
+users = User.all
+user  = users.first
+following = users[2..10]
+followers = users[5..15]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }
